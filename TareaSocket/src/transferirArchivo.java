@@ -81,16 +81,18 @@ public class transferirArchivo {
 			os.write(array, 0, cantBytes);
 			if (cantBytes<tamaArchivo)
 				cantBytes= fis.read(array, 0 , array.length);
-			else {
-				fis.close();
-				os.close();
-			}
+			
+				
+			
 				
 			//total+=cantBytes;
 			
 			//System.out.println("% de transferencia: "+(total*100/tamaArchivo)+"%");
 			//System.out.println("Lo que lleva del archivo es: "+total);
 		}
+		fis.close();
+		os.close();
+		
 		//System.out.println(total);
 
 		

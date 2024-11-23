@@ -35,9 +35,7 @@ public class HiloTransferencia implements Runnable {
 			fos = new FileOutputStream(f);
 			transferirArchivo.transfer(tamañoArchivo, s.getInputStream(), fos);
 			
-			dos = new DataOutputStream(s.getOutputStream());
-			dos.writeUTF("Hola e¡'fnsdaf");
-			dos.flush();
+			
 			
 			fos.close();
 			fos = null;
