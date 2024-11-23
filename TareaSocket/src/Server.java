@@ -30,7 +30,6 @@ public class Server {
 			switch(men.getOrden()) {
 			case "up" :
 				respuesta ="up";
-				
 
 					
 				break;

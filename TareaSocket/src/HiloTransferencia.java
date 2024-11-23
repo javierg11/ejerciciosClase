@@ -26,7 +26,7 @@ public class HiloTransferencia implements Runnable {
 			dis = new DataInputStream(s.getInputStream());
 
 			long tamañoArchivo = dis.readLong();
-			String nombreArchivo = dis.readUTF();
+			String nombreArchivo = "Alpha.png";
 
 			File f = new File(nombreArchivo);
 			if (f.exists()) {

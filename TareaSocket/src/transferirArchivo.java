@@ -66,31 +66,27 @@ public class transferirArchivo {
 			System.err.println("no esxiste: "+fileRoute);
 	}
 	
-	public  static void transfer(long tamaArchivo, InputStream fis, OutputStream os) 
-			throws FileNotFoundException, IOException {
-		
-		byte [] array = new byte[1024];
-		int cantBytes=0;
-		
-		//int total=0;
-		
-		//System.out.println(tamaArchivo);
-		
-		cantBytes= fis.read(array, 0 , array.length);
-		while(cantBytes!=-1) {
-			os.write(array, 0, cantBytes);
-			cantBytes= fis.read(array, 0 , array.length);
-			
-			//total+=cantBytes;
-			
-			//System.out.println("% de transferencia: "+(total*100/tamaArchivo)+"%");
-			//System.out.println("Lo que lleva del archivo es: "+total);
-		}
-		//System.out.println(total);
-		System.out.println("erro");
-		fis.close();
-		os.close();
-		
+	public static void transfer(long tamaArchivo, InputStream is, OutputStream os) 
+	        throws IOException {
+	    byte[] buffer = new byte[8192]; // Buffer más grande para mejor rendimiento
+	    int bytesRead;
+	    long totalBytesRead = 0;
+
+	    while (totalBytesRead < tamaArchivo) {
+	        bytesRead = is.read(buffer, 0, (int) Math.min(buffer.length, tamaArchivo - totalBytesRead));
+	        if (bytesRead == -1) {
+	            break; // Fin del stream antes de lo esperado
+	        }
+	        os.write(buffer, 0, bytesRead);
+	        totalBytesRead += bytesRead;
+	    }
+
+	    os.flush();
+	    
+	    if (totalBytesRead < tamaArchivo) {
+	        System.out.println("Advertencia: Se leyeron menos bytes de los esperados");
+	    }
 	}
+
 
 }

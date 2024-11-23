@@ -48,20 +48,23 @@ public class Cliente {
 			dis = new DataInputStream(s.getInputStream());
 			String nombreArchivo = dis.readUTF();
 			
-			
 			if (nombreArchivo.equals("up")) {
 				
 				
+			File f = new File(nombre);
+			fis = new FileInputStream(f);
+			dos = new DataOutputStream(s.getOutputStream());
 			
+			dos.writeLong(f.length());
+			dos.flush();
 			
-			System.out.println("dsaiugfdsiua");
-			Thread thDescargar = new Thread(new HiloTransferencia(s));
-			thDescargar.start();
-			
+			    dos.writeUTF(f.getName());
+			    dos.flush();
 			
 			
 			
 		
+			transferirArchivo.transfer(f.length(), fis, s.getOutputStream());
 			
 			}
 		} catch (UnknownHostException e) {
