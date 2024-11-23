@@ -14,17 +14,17 @@ public class transferirArchivo {
 		FileInputStream fis=null;
 		FileOutputStream fos=null;
 		String fileRoute = //(args.length>0) ? args[0] : 
-				"/home/alumno/Imágenes/hasfola.gif";
+				"C:\\Users\\rafag\\Desktop\\Fotos_random\\asta.jpg";
 		File file = new File(fileRoute);
 		if (file.exists()) {
 			try {
 				fis = new FileInputStream(file);
-				File fileOutput = new File ("ArchivoRecibido.gif");
+				File fileOutput = new File ("ArchivoRecibido.png");
 				System.out.println("Archivo guardado en: "+fileOutput.getAbsolutePath());
 				if (fileOutput.exists())
 					fileOutput.delete();
 				fos = new FileOutputStream(fileOutput);
-				Socket s = new Socket("127.0.0.1",8542);
+				Socket s = new Socket("127.0.0.1",2311);
 				
 				
 				
@@ -66,27 +66,34 @@ public class transferirArchivo {
 			System.err.println("no esxiste: "+fileRoute);
 	}
 	
-	public static void transfer(long tamaArchivo, InputStream is, OutputStream os) 
-	        throws IOException {
-	    byte[] buffer = new byte[8192]; // Buffer más grande para mejor rendimiento
-	    int bytesRead;
-	    long totalBytesRead = 0;
+	public  static void transfer(long tamaArchivo, InputStream fis, OutputStream os) 
+			throws FileNotFoundException, IOException {
+		
+		byte [] array = new byte[2048];
+		int cantBytes=0;
+		
+		//int total=0;
+		
+		//System.out.println(tamaArchivo);
+		
+		cantBytes= fis.read(array, 0 , array.length);
+		while(cantBytes!=-1) {
+			os.write(array, 0, cantBytes);
+			if (cantBytes<tamaArchivo)
+				cantBytes= fis.read(array, 0 , array.length);
+			else {
+				fis.close();
+				os.close();
+			}
+				
+			//total+=cantBytes;
+			
+			//System.out.println("% de transferencia: "+(total*100/tamaArchivo)+"%");
+			//System.out.println("Lo que lleva del archivo es: "+total);
+		}
+		//System.out.println(total);
 
-	    while (totalBytesRead < tamaArchivo) {
-	        bytesRead = is.read(buffer, 0, (int) Math.min(buffer.length, tamaArchivo - totalBytesRead));
-	        if (bytesRead == -1) {
-	            break; // Fin del stream antes de lo esperado
-	        }
-	        os.write(buffer, 0, bytesRead);
-	        totalBytesRead += bytesRead;
-	    }
-
-	    os.flush();
-	    
-	    if (totalBytesRead < tamaArchivo) {
-	        System.out.println("Advertencia: Se leyeron menos bytes de los esperados");
-	    }
+		
 	}
-
 
 }

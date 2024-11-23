@@ -17,7 +17,7 @@ public class Server {
 		DataOutputStream dos=null;
 		
 		try {
-			ss=new ServerSocket(8542);
+			ss=new ServerSocket(2311);
 			
 			s = ss.accept();
 			ois = new ObjectInputStream(s.getInputStream());
@@ -30,6 +30,9 @@ public class Server {
 			switch(men.getOrden()) {
 			case "up" :
 				respuesta ="up";
+				System.out.println("dsaiugfdsiua");
+				Thread thDescargar = new Thread(new HiloTransferencia(s));
+				thDescargar.start();
 
 					
 				break;
@@ -63,40 +66,6 @@ public class Server {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
-			if (s!=null) {
-				try {
-					s.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if (ss!=null) {
-				try {
-					ss.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if (ois!=null) {
-				try {
-					ois.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if (dos!=null) {
-				try {
-					dos.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
 		}
 
 	}

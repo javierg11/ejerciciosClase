@@ -10,11 +10,12 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Scanner;
-
+import java.io.InputStream;
 
 public class Cliente {
 	public static void main(String[] args) {
 		FileInputStream fis = null;
+		
 		DataOutputStream dos = null;
 		DataInputStream dis=null;
 		Socket s = null;
@@ -29,7 +30,7 @@ public class Cliente {
 		String nombre = lectura.next();
 		
 		try {
-			s= new Socket("127.0.0.1", 8542);
+			s= new Socket("127.0.0.1", 2311);
 			oos = new ObjectOutputStream(s.getOutputStream());
 			
 			men = new Mensaje();
@@ -45,8 +46,12 @@ public class Cliente {
 
 			
 			
+			
+			
+			
 			dis = new DataInputStream(s.getInputStream());
 			String nombreArchivo = dis.readUTF();
+			
 			
 			if (nombreArchivo.equals("up")) {
 				
@@ -73,39 +78,6 @@ public class Cliente {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
-			if (s!=null) {
-				try {
-					s.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if (dos!=null) {
-				try {
-					dos.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if (oos!=null) {
-				try {
-					oos.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if (dis!=null) {
-				try {
-					dis.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
 		}
 	}
 
