@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
@@ -33,6 +34,7 @@ public class Cliente {
 			
 			men = new Mensaje();
 			
+			nombre="C:\\Users\\rafag\\Desktop\\Fotos_random\\Alpha.png";
 			men.setArchivo(nombre);
 			men.setOrden(orden);
 			
@@ -40,23 +42,28 @@ public class Cliente {
 			oos.flush();
 			
 			
-				File f = new File(nombre);
-				fis = new FileInputStream(f);
-				dos = new DataOutputStream(s.getOutputStream());
-				dos.writeLong(f.length());
-				dos.flush();
-				
-				dos.writeUTF(f.getName());
-				dos.flush();
-				
-			
-				transferirArchivo.transfer(f.length(), fis, s.getOutputStream());
+
 			
 			
 			dis = new DataInputStream(s.getInputStream());
 			String nombreArchivo = dis.readUTF();
-			System.out.println(nombreArchivo+"adashfusdagfhjksbnaflghjlj");
 			
+			
+			if (nombreArchivo.equals("up")) {
+				
+				
+			
+			
+			System.out.println("dsaiugfdsiua");
+			Thread thDescargar = new Thread(new HiloTransferencia(s));
+			thDescargar.start();
+			
+			
+			
+			
+		
+			
+			}
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

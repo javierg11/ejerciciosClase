@@ -30,9 +30,7 @@ public class Server {
 			switch(men.getOrden()) {
 			case "up" :
 				respuesta ="up";
-				System.out.println("dsaiugfdsiua");
-				Thread thDescargar = new Thread(new HiloTransferencia(s));
-				thDescargar.start();
+				
 
 					
 				break;
