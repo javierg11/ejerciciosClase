@@ -90,9 +90,10 @@ public class transferirArchivo {
 			//System.out.println("% de transferencia: "+(total*100/tamaArchivo)+"%");
 			//System.out.println("Lo que lleva del archivo es: "+total);
 		}
-		fis.close();
-		os.close();
-		
+	    
+	    fis.close();
+	    os.flush();
+	    os.close();
 		//System.out.println(total);
 
 		

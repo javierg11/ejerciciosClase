@@ -19,18 +19,25 @@ public class hiloDescargar implements Runnable{
 	}
 	@Override
 	public void run() {
+		FileInputStream fis = null;
 		DataInputStream dis = null;
 		DataOutputStream dos=null;
 		try {
 			
+			
 			dis = new DataInputStream(s.getInputStream());
 
-			String nombreArchivo = "server/"+dis.readUTF();
+			long tamañoArchivo = dis.readLong();
+			String nombreArchivo = dis.readUTF();
 
-			File f = new File(nombreArchivo);
 			dos = new DataOutputStream(s.getOutputStream());
+			File f = new File(nombreArchivo);
 			
-			
+			fis = new FileInputStream(f);
+			if (f.exists()) {
+				f.delete();
+			}
+			transferirArchivo.transfer(tamañoArchivo, fis, dos);
 			
 	}catch (IOException e) {
 

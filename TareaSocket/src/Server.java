@@ -2,7 +2,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 
 public class Server {
 
@@ -12,6 +14,7 @@ public class Server {
 		String respuesta = "";
 		ObjectInputStream ois = null;
 		DataOutputStream dos = null;
+		DataInputStream dis = null;
 
 		try {
 			ss = new ServerSocket(2311);
@@ -25,19 +28,22 @@ public class Server {
 			switch (men.getOrden()) {
 			case "up":
 				respuesta = "up";
-				System.out.println("dsaiugfdsiua");
-				Thread thDescargar = new Thread(new HiloTransferencia(s));
-				thDescargar.start();
+				Thread thTransferir = new Thread(new HiloTransferencia(s));
+				thTransferir.start();
 
 				break;
 			case "down":
+				
+				
 				respuesta = "down";
-
-				s.getOutputStream();
+				Thread thDescargar = new Thread(new hiloDescargar(s));
+				thDescargar.start();
+				
 				break;
 			case "delete":
 				respuesta = "delete";
-
+				
+				
 				Thread thBorrar = new Thread(new HiloBorrar(s, men.getArchivo()));
 				thBorrar.start();
 				break;
@@ -50,7 +56,6 @@ public class Server {
 			dos.writeUTF(respuesta);
 			dos.flush();
 
-			System.out.println("asd");
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

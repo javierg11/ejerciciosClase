@@ -30,6 +30,7 @@ public class HiloBorrar implements Runnable{
 			
 			if (f.exists()) {
 				f.delete();
+				System.out.println(f.getAbsolutePath());
 			}
 			else {
 				System.out.println("no existe");
